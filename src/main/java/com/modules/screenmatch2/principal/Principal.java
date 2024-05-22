@@ -1,9 +1,6 @@
 package com.modules.screenmatch2.principal;
 
-import com.modules.screenmatch2.model.DatosEpisodio;
-import com.modules.screenmatch2.model.DatosSerie;
-import com.modules.screenmatch2.model.DatosTemporadas;
-import com.modules.screenmatch2.model.Episodio;
+import com.modules.screenmatch2.model.*;
 import com.modules.screenmatch2.service.ConsumoAPI;
 import com.modules.screenmatch2.service.ConvierteDatos;
 
@@ -81,6 +78,12 @@ public class Principal {
     }
 
     private void mostrarSeriesBuscadas() {
-        datosSeries.forEach(System.out::println);
+        List<Serie> series = new ArrayList<>();
+        series = datosSeries.stream()
+                .map(s -> new Serie(s))
+                .collect(Collectors.toList());
+        series.stream()
+                .sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
     }
 }
