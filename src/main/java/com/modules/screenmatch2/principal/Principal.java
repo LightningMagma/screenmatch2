@@ -1,6 +1,7 @@
 package com.modules.screenmatch2.principal;
 
 import com.modules.screenmatch2.model.*;
+import com.modules.screenmatch2.repository.SerieRepository;
 import com.modules.screenmatch2.service.ConsumoAPI;
 import com.modules.screenmatch2.service.ConvierteDatos;
 
@@ -16,6 +17,11 @@ public class Principal {
     private final String URL_BASE = "https://www.omdbapi.com/?t=";
     private final String API_KEY = "&apikey=78d77005";
     private List<DatosSerie> datosSeries = new ArrayList<>();
+    private SerieRepository repositorio;
+
+    public Principal(SerieRepository repository) {
+        this.repositorio = repository;
+    }
 
     public void mostrarMenu() {
         var opcion = -1;
@@ -73,7 +79,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DatosSerie datos = getDatosSerie();
-        datosSeries.add(datos);
+        Serie serie = new Serie(datos);
+        repositorio.save(serie);
+        //datosSeries.add(datos);
         System.out.println(datos);
     }
 
