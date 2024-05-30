@@ -168,10 +168,10 @@ public class Principal {
         System.out.println("¿Filtrar séries con cuántas temporadas? ");
         var totalTemporadas = lectura.nextInt();
         lectura.nextLine();
-        System.out.println("¿Com evaluación apartir de cuál valor? ");
+        System.out.println("¿Con evaluación apartir de cuál valor? ");
         var evaluacion = lectura.nextDouble();
         lectura.nextLine();
-        List<Serie> filtroSeries = repositorio.findByTotalTemporadasLessThanEqualAndEvaluacionGreaterThanEqual(totalTemporadas, evaluacion);
+        List<Serie> filtroSeries = repositorio.seriesPorTemporadaYEvaluación(totalTemporadas,evaluacion);
         System.out.println("*** Series filtradas ***");
         filtroSeries.forEach(s ->
                 System.out.println(s.getTitulo() + "  - evaluacion: " + s.getEvaluacion()));
