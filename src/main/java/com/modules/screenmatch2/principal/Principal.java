@@ -35,6 +35,7 @@ public class Principal {
                     5 - Top 5 series
                     6 - Buscar series por categoria
                     7 - Filtrar series
+                    8 - Buscar episodios por título
                                         
                     0 - Salir
                     """;
@@ -63,6 +64,10 @@ public class Principal {
                     break;
                 case 7:
                     filtrarSeriesPorTemporadaYEvaluacion();
+                    break;
+                case 8:
+                    buscarEpisodiosPorTitulo();
+                    break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
                     break;
@@ -164,16 +169,25 @@ public class Principal {
         seriesPorCategoria.forEach(System.out::println);
     }
 
-    private void filtrarSeriesPorTemporadaYEvaluacion(){
+    private void filtrarSeriesPorTemporadaYEvaluacion() {
         System.out.println("¿Filtrar séries con cuántas temporadas? ");
         var totalTemporadas = lectura.nextInt();
         lectura.nextLine();
         System.out.println("¿Con evaluación apartir de cuál valor? ");
         var evaluacion = lectura.nextDouble();
         lectura.nextLine();
-        List<Serie> filtroSeries = repositorio.seriesPorTemporadaYEvaluación(totalTemporadas,evaluacion);
+        List<Serie> filtroSeries = repositorio.seriesPorTemporadaYEvaluacion(totalTemporadas, evaluacion);
         System.out.println("*** Series filtradas ***");
         filtroSeries.forEach(s ->
                 System.out.println(s.getTitulo() + "  - evaluacion: " + s.getEvaluacion()));
+    }
+
+    private void buscarEpisodiosPorTitulo() {
+        System.out.println("Escribe el nombre del episodio que deseas buscar");
+        var nombreEpisodio = lectura.nextLine();
+        List<Episodio> episodiosEncontrados = repositorio.episodiosPorNombre(nombreEpisodio);
+        episodiosEncontrados.forEach(e ->
+                System.out.printf("Serie: %s, Temporada: %s, Episodio: %s, Evaluación: %s\n",
+                        e.getSerie().getTitulo(), e.getTemporada(), e.getNumeroEpisodio(), e.getEvaluacion()));
     }
 }
